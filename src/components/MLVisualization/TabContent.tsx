@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useMLData } from './MLDataContext';
 import { ClusteringChart, ConvergenceChart, CommunicationChart, LearningRateChart } from './ChartComponents';
@@ -630,4 +631,27 @@ export const ImplementationTab: React.FC = () => {
       <div className="mt-8">
         <h4 className="font-medium text-mlgray-800 mb-3">Algorithm Flowcharts</h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white p-5 rounded
+          <div className="bg-white p-5 rounded-lg border border-mlgray-200">
+            <h5 className="font-medium text-mlgray-900 mb-3">Data Heterogeneity Handling</h5>
+            <div className="text-center p-4 bg-mlgray-50 rounded-lg">
+              <p className="text-sm text-mlgray-700 italic">Interactive flowchart visualization</p>
+              <div className="mt-2 p-3 bg-blue-50 rounded border border-blue-100 text-xs text-blue-800">
+                Shows detection, adaptation, and monitoring components with feedback loops
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-white p-5 rounded-lg border border-mlgray-200">
+            <h5 className="font-medium text-mlgray-900 mb-3">System Architecture Flow</h5>
+            <div className="text-center p-4 bg-mlgray-50 rounded-lg">
+              <p className="text-sm text-mlgray-700 italic">Interactive flowchart visualization</p>
+              <div className="mt-2 p-3 bg-green-50 rounded border border-green-100 text-xs text-green-800">
+                Illustrates data flow through LSH, DBSCAN, density calculation, and consensus mechanisms
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
