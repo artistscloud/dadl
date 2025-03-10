@@ -5,9 +5,9 @@ import { useMLData } from './MLDataContext';
 import { Button } from '@/components/ui/button';
 import MermaidChart from './MermaidChart';
 
-export const ImplementationTab: React.FC = () => {
+const ImplementationTab: React.FC = () => {
   const { implementationData } = useMLData();
-  
+
   const heterogeneityFlowchart = `
     flowchart TB
       subgraph DH["Data Heterogeneity Handling"]
