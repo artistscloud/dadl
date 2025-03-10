@@ -657,3 +657,4 @@ export const ImplementationTab: React.FC = () => {
               {implementationData.newImplementations.map((step, index) => (
                 <div key={index} className="flex items-start p-4 bg-white rounded-lg shadow-sm border border-mlgray-200">
                   <div className="w-8 h-8 flex items-center justify-center rounded-full bg-mlpurple text-white text-sm font-medium mr-3 flex-shrink-0">
+                    {index +
