@@ -576,6 +576,17 @@ export const ImplementationTab: React.FC = () => {
       <div className="flex items-center gap-2 mb-4">
         <CodeIcon className="w-5 h-5 text-mlblue" />
         <h3 className="text-lg font-semibold text-mlgray-900">Implementation Strategy</h3>
+        <div className="ml-auto">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="flex items-center gap-1"
+            onClick={() => window.open('https://drive.google.com/file/d/1FwAIR4xHE8y9MCxAz9zhDOSZFNMDLiwX/view?usp=sharing', '_blank')}
+          >
+            <DownloadIcon className="h-4 w-4" />
+            Download Documentation
+          </Button>
+        </div>
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -646,15 +657,3 @@ export const ImplementationTab: React.FC = () => {
               {implementationData.newImplementations.map((step, index) => (
                 <div key={index} className="flex items-start p-4 bg-white rounded-lg shadow-sm border border-mlgray-200">
                   <div className="w-8 h-8 flex items-center justify-center rounded-full bg-mlpurple text-white text-sm font-medium mr-3 flex-shrink-0">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <h5 className="font-medium text-mlgray-900 mb-1">{step}</h5>
-                    {index === 0 && (
-                      <p className="text-sm text-mlgray-700">
-                        Begin with core probabilistic data structures and build the LSH partitioning with density-aware bucket splitting.
-                      </p>
-                    )}
-                    {index === 1 && (
-                      <p className="text-sm text-mlgray-700">
-                        Choose a distributed computing framework
