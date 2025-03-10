@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 // Types for the context
@@ -9,8 +10,8 @@ type MLDataContextType = {
   consensusMode: 'sync' | 'async' | 'hybrid';
   setConsensusMode: (mode: 'sync' | 'async' | 'hybrid') => void;
   clusterData: any[];
-  convergenceData: { [key: string]: any[] };
-  communicationData: { [key: string]: any[] };
+  convergenceData: any[];
+  communicationData: any[];
   learningRateData: any[];
   implementationData: {
     establishedSystems: string[];
