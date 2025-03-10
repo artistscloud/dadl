@@ -1,8 +1,40 @@
-
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useMLData } from './MLDataContext';
 import { ClusteringChart, ConvergenceChart, CommunicationChart, LearningRateChart } from './ChartComponents';
-import { InfoIcon, BarChart3Icon, TrendingUpIcon, ServerIcon, CodeIcon, ArrowRightIcon, ClockIcon, ZapIcon } from 'lucide-react';
+import { InfoIcon, BarChart3Icon, TrendingUpIcon, ServerIcon, CodeIcon, ArrowRightIcon, ClockIcon, ZapIcon, DownloadIcon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import mermaid from 'mermaid';
+
+interface MermaidProps {
+  chart: string;
+}
+
+const Mermaid: React.FC<MermaidProps> = ({ chart }) => {
+  const mermaidRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'neutral',
+      securityLevel: 'loose',
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'basis',
+      },
+    });
+    
+    if (mermaidRef.current) {
+      mermaid.render('mermaid-svg', chart).then((result) => {
+        if (mermaidRef.current) {
+          mermaidRef.current.innerHTML = result.svg;
+        }
+      });
+    }
+  }, [chart]);
+
+  return <div className="mermaid" ref={mermaidRef} />;
+};
 
 // Overview Tab
 export const OverviewTab: React.FC = () => {
@@ -493,6 +525,52 @@ export const PerformanceTab: React.FC = () => {
 export const ImplementationTab: React.FC = () => {
   const { implementationData } = useMLData();
   
+  const heterogeneityFlowchart = `
+    flowchart TB
+      subgraph DH["Data Heterogeneity Handling"]
+        direction TB
+        subgraph Detection["Heterogeneity Detection"]
+          DD[Distribution Analysis]
+          DS[Density Sampling]
+          GM[Gradient Monitoring]
+        end
+        subgraph Adaptation["Adaptation Mechanisms"]
+          direction LR
+          LN[Local Normalization]
+          GT[Gradient Transformation]
+          WS[Weight Scaling]
+        end
+        subgraph Monitoring["Performance Monitoring"]
+          direction TB
+          VM[Validation Metrics]
+          DM[Distribution Metrics]
+          CM[Convergence Monitoring]
+        end
+      end
+      Detection --> Adaptation
+      Adaptation --> Monitoring
+      Monitoring -->|Feedback| Detection
+      style Detection fill:#e1f3d8,stroke:#333,stroke-width:2px
+      style Adaptation fill:#ffd700,stroke:#333,stroke-width:2px
+      style Monitoring fill:#f9f9f9,stroke:#333,stroke-width:2px
+  `;
+
+  const architectureFlowchart = `
+    flowchart TD
+      subgraph LSH["Locality-Sensitive Hashing"]
+        direction TB
+        HF["Hash Functions"] -->|"Creates"| BK["Buckets"]
+        BK -->|"Resolution"| SB["Split by Density"]
+      end
+      subgraph DBSCAN["Parallel DBSCAN"]
+        CP["Core Points"] -->|"Core"| EC["Expand"]
+        EC -->|"Boundary"| BR["Resolution"]
+      end
+      LSH -->|"Data"| DBSCAN
+      style LSH fill:#f5f5f5,stroke:#333,stroke-width:2px
+      style DBSCAN fill:#e1f3d8,stroke:#333,stroke-width:2px
+  `;
+
   return (
     <div className="p-6 bg-white rounded-2xl shadow-sm animate-fade-in">
       <div className="flex items-center gap-2 mb-4">
@@ -579,79 +657,4 @@ export const ImplementationTab: React.FC = () => {
                     )}
                     {index === 1 && (
                       <p className="text-sm text-mlgray-700">
-                        Choose a distributed computing framework like Ray, PyTorch Distributed, or custom gRPC implementations.
-                      </p>
-                    )}
-                    {index === 2 && (
-                      <p className="text-sm text-mlgray-700">
-                        Implement both synchronous (AllReduce) and asynchronous (Parameter Server or Gossip) protocols.
-                      </p>
-                    )}
-                    {index === 3 && (
-                      <p className="text-sm text-mlgray-700">
-                        Build comprehensive monitoring for density metrics, performance statistics, and adaptation interfaces.
-                      </p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          <div className="p-5 bg-mlgray-50 rounded-xl">
-            <h4 className="font-medium text-mlgray-800 mb-3">Implementation Roadmap</h4>
-            <div className="space-y-4">
-              {implementationData.phases.map((phase, index) => (
-                <div key={index} className="p-4 bg-white rounded-lg shadow-sm border border-mlgray-200">
-                  <div className="flex items-center mb-3">
-                    <div className={`w-3 h-3 rounded-full mr-2 ${
-                      index === 0 ? 'bg-green-500' : index === 1 ? 'bg-blue-500' : 'bg-purple-500'
-                    }`}></div>
-                    <h5 className="font-medium text-mlgray-900">{phase.phase}</h5>
-                    <div className="ml-auto flex items-center text-xs bg-mlgray-100 px-2 py-1 rounded">
-                      <ClockIcon className="w-3 h-3 mr-1 text-mlgray-600" />
-                      <span className="text-mlgray-700">{phase.timeframe}</span>
-                    </div>
-                  </div>
-                  <ul className="space-y-2 pl-5">
-                    {phase.tasks.map((task, taskIndex) => (
-                      <li key={taskIndex} className="flex items-start text-sm text-mlgray-700">
-                        <ArrowRightIcon className="w-3 h-3 text-mlgray-400 mt-1 mr-2 flex-shrink-0" />
-                        <span>{task}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div className="mt-8">
-        <h4 className="font-medium text-mlgray-800 mb-3">Algorithm Flowcharts</h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white p-5 rounded-lg border border-mlgray-200">
-            <h5 className="font-medium text-mlgray-900 mb-3">Data Heterogeneity Handling</h5>
-            <div className="text-center p-4 bg-mlgray-50 rounded-lg">
-              <p className="text-sm text-mlgray-700 italic">Interactive flowchart visualization</p>
-              <div className="mt-2 p-3 bg-blue-50 rounded border border-blue-100 text-xs text-blue-800">
-                Shows detection, adaptation, and monitoring components with feedback loops
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-white p-5 rounded-lg border border-mlgray-200">
-            <h5 className="font-medium text-mlgray-900 mb-3">System Architecture Flow</h5>
-            <div className="text-center p-4 bg-mlgray-50 rounded-lg">
-              <p className="text-sm text-mlgray-700 italic">Interactive flowchart visualization</p>
-              <div className="mt-2 p-3 bg-green-50 rounded border border-green-100 text-xs text-green-800">
-                Illustrates data flow through LSH, DBSCAN, density calculation, and consensus mechanisms
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+                        Choose a distributed computing framework
