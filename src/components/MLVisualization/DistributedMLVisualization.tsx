@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { MLDataProvider, useMLData } from './MLDataContext';
-import { OverviewTab, ClusteringTab, LearningTab, PerformanceTab } from './TabContent';
-import { InfoIcon, ServerIcon, TrendingUpIcon, BarChart3Icon } from 'lucide-react';
+import { OverviewTab, ClusteringTab, LearningTab, PerformanceTab, ImplementationTab } from './TabContent';
+import { InfoIcon, ServerIcon, TrendingUpIcon, BarChart3Icon, CodeIcon } from 'lucide-react';
 
 // TabButton Component
 interface TabButtonProps {
@@ -58,6 +58,12 @@ const TabsNavigation: React.FC = () => {
         icon={<BarChart3Icon className="w-4 h-4" />}
         label="Performance"
       />
+      <TabButton 
+        active={activeTab === 'implementation'} 
+        onClick={() => setActiveTab('implementation')}
+        icon={<CodeIcon className="w-4 h-4" />}
+        label="Implementation"
+      />
     </div>
   );
 };
@@ -82,6 +88,8 @@ const TabContentRenderer: React.FC = () => {
         return <LearningTab key={key} />;
       case 'performance':
         return <PerformanceTab key={key} />;
+      case 'implementation':
+        return <ImplementationTab key={key} />;
       default:
         return <div>Select a tab to view content</div>;
     }
