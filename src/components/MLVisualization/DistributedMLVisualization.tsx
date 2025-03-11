@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { MLDataProvider, useMLData } from './MLDataContext';
 import { OverviewTab, ClusteringTab, LearningTab, PerformanceTab, ImplementationTab } from './TabContent';
@@ -74,13 +73,9 @@ const DistributedMLVisualization: React.FC = () => {
       <div className="min-h-screen bg-mlgray-50 py-8 px-4 sm:px-6 md:px-8">
         <div className="w-full max-w-6xl mx-auto">
           <div className="bg-gradient-to-r from-mlblue to-mlpurple rounded-2xl overflow-hidden shadow-lg animate-fade-in">
-            <div className="p-8 text-white">
+            <div className="p-8 text-white bg-green-500">
               <div className="flex justify-center mb-4">
-                <img 
-                  src="/lovable-uploads/e6e1f1a2-f15d-45e1-9301-8b1ac4857d57.png" 
-                  alt="DADL Logo" 
-                  className="h-12"
-                />
+                <img src="/lovable-uploads/e6e1f1a2-f15d-45e1-9301-8b1ac4857d57.png" alt="DADL Logo" className="h-12" />
               </div>
               <h2 className="text-2xl md:text-3xl font-bold mb-2 tracking-tight text-center">DADL Density Aware Distributed Learning</h2>
               <p className="mt-2 opacity-90 font-light text-center">
