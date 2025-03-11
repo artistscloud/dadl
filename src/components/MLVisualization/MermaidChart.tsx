@@ -21,16 +21,23 @@ const MermaidChart: React.FC<MermaidProps> = ({ chart }) => {
       },
     });
     
-    if (mermaidRef.current) {
-      mermaid.render('mermaid-svg', chart).then((result) => {
-        if (mermaidRef.current) {
-          mermaidRef.current.innerHTML = result.svg;
+    const renderChart = async () => {
+      if (mermaidRef.current) {
+        try {
+          const { svg } = await mermaid.render('mermaid-svg-' + Math.random(), chart);
+          if (mermaidRef.current) {
+            mermaidRef.current.innerHTML = svg;
+          }
+        } catch (error) {
+          console.error('Error rendering mermaid chart:', error);
         }
-      });
-    }
+      }
+    };
+    
+    renderChart();
   }, [chart]);
 
-  return <div className="mermaid" ref={mermaidRef} />;
+  return <div className="mermaid w-full overflow-x-auto" ref={mermaidRef} />;
 };
 
 export default MermaidChart;

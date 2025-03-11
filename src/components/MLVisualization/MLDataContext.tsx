@@ -10,8 +10,15 @@ type MLDataContextType = {
   consensusMode: 'sync' | 'async' | 'hybrid';
   setConsensusMode: (mode: 'sync' | 'async' | 'hybrid') => void;
   clusterData: any[];
-  convergenceData: any[];
-  communicationData: any[];
+  convergenceData: {
+    'iid': Array<{ iteration: number; proposed: number; dsgd: number; fedavg: number }>;
+    'non-iid': Array<{ iteration: number; proposed: number; dsgd: number; fedavg: number }>;
+  };
+  communicationData: {
+    'sync': Array<{ metric: string; proposed: number; dsgd: number; fedavg: number }>;
+    'async': Array<{ metric: string; proposed: number; dsgd: number; fedavg: number }>;
+    'hybrid': Array<{ metric: string; proposed: number; dsgd: number; fedavg: number }>;
+  };
   learningRateData: any[];
   implementationData: {
     establishedSystems: string[];
