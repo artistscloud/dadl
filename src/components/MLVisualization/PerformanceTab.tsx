@@ -14,6 +14,10 @@ export const PerformanceTab: React.FC = () => {
     communicationData
   } = useMLData();
   
+  // Select the appropriate data based on current selections
+  const selectedConvergenceData = convergenceData[dataDistribution] || [];
+  const selectedCommunicationData = communicationData[consensusMode] || [];
+  
   return (
     <div className="p-6 bg-white rounded-2xl shadow-sm animate-fade-in">
       <div className="flex items-center gap-2 mb-4">
@@ -51,7 +55,7 @@ export const PerformanceTab: React.FC = () => {
       <div className="space-y-8">
         <div className="p-5 bg-mlgray-50 rounded-lg">
           <h4 className="font-medium text-mlgray-800 mb-3">Convergence Speed</h4>
-          <ConvergenceChart data={convergenceData} height={300} />
+          <ConvergenceChart data={selectedConvergenceData} height={300} />
           <div className="mt-3 text-xs text-mlgray-600 italic text-center">
             Higher values indicate better accuracy. Our approach converges faster, especially with non-IID data.
           </div>
@@ -59,7 +63,7 @@ export const PerformanceTab: React.FC = () => {
         
         <div className="p-5 bg-mlgray-50 rounded-lg">
           <h4 className="font-medium text-mlgray-800 mb-3">Communication Overhead</h4>
-          <CommunicationChart data={communicationData} height={300} />
+          <CommunicationChart data={selectedCommunicationData} height={300} />
           <div className="mt-3 text-xs text-mlgray-600 italic text-center">
             Lower values indicate more efficient resource usage. Our approach significantly reduces communication overhead.
           </div>
