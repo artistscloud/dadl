@@ -172,14 +172,14 @@ export const ImplementationTab: React.FC = () => {
           
           <div className="p-5 bg-mlgray-50 rounded-xl">
             <h4 className="font-medium text-mlgray-800 mb-3">Heterogeneity Handling</h4>
-            <div className="overflow-hidden">
+            <div className="min-h-[300px] w-full">
               <MermaidChart chart={heterogeneityFlowchart} />
             </div>
           </div>
           
           <div className="p-5 bg-mlgray-50 rounded-xl mt-4">
             <h4 className="font-medium text-mlgray-800 mb-3">Architecture Overview</h4>
-            <div className="overflow-hidden">
+            <div className="min-h-[300px] w-full">
               <MermaidChart chart={architectureFlowchart} />
             </div>
           </div>
